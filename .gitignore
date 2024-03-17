@@ -1,6 +1,15 @@
 # Compiled class file
 *.class
 
+# Ignore the build directory
+build/
+
+# Ignore the .gradle directory
+.gradle/
+
+# Ignore idea
+.idea/
+
 # Log file
 *.log
 
