@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    username: rua
+    url: jdbc:sqlserver://wedding-quiz.database.windows.net;databaseName=wedding-quiz
+    password: Myh.1059331302
+  jpa:
+    open-in-view: false # Disable as OSIV can cause performance issues in production
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      ddl-auto: none # Disable Hibernate automatic schema creation
+  sql:
+    init:
+      mode: always # Initialize the database, do not use deprecated spring.datasource.initialization-mode
+      schema-locations: classpath:sql/schema.sql
