@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Choices</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Ensures that the border is clean and no double borders appear */
+        }
+        th, td {
+            border: 1px solid #ddd; /* Adds a border to each cell */
+            padding: 8px; /* Adds some padding inside each cell */
+            text-align: left; /* Aligns text to the left; adjust as needed */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Adds a background color to even rows */
+        }
+        th {
+            background-color: #4CAF50; /* Adds a background color to header cells */
+            color: white; /* Changes the text color for header cells to white */
+        }
+    </style>
+</head>
+<body>
+<div th:each="entry : ${groupedByDate}">
+    <h3 th:text="${entry.key}">Date</h3> <!-- Display the date here -->
+    <table>
+        <tr>
+            <th>Name</th>
+            <th:block th:each="i : ${#numbers.sequence(1, maxChoices)}">
+                <th th:text="${i}"></th>
+            </th:block>
+        </tr>
+        <tr th:each="userChoice : ${entry.value}"> <!-- Iterate over UserChoice entities for the current date -->
+            <td th:text="${userChoice.userName}"></td>
+            <th:block th:each="choice, stat : ${#strings.arraySplit(userChoice.choices, ',')}">
+                <td th:text="${choice.trim()}"></td>
+            </th:block>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

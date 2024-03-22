@@ -5,7 +5,11 @@ import com.yuanhao.weddingquiz.persistence.UserChoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class UserChoiceService {
@@ -29,5 +33,11 @@ public class UserChoiceService {
             UserChoice newUserChoice = new UserChoice(userName, choices, currentTime, currentTime);
             userChoiceRepository.save(newUserChoice);
         }
+    }
+
+    public Map<LocalDate, List<UserChoice>> groupByDate() {
+        final var allChoices = userChoiceRepository.findAll();
+        return allChoices.stream()
+                .collect(Collectors.groupingBy(c -> c.getUpdatedOn().toLocalDate()));
     }
 }
